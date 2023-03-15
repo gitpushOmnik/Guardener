@@ -25,9 +25,12 @@ The application asks for camera permission from the user
 
 After the picture is successfully upload, the Machine Learning Model trained using CreateML and CoreML framework performs its classification and then displays the name of the disease as the navigation bar title. It also displays additional information about the disease below the picture. After the classsification button, a treatment button appears
 
+<img src="https://github.com/gitpushOmnik/Guardener/blob/main/README%20Images/IMG_2687.PNG" width="275" height="600">
+
 <img src="https://github.com/gitpushOmnik/Guardener/blob/main/README%20Images/IMG_2686.PNG" width="275" height="600">
 
 ### Treatment
 
 After the treatment button is pressed, a WebView appears where more information about the disease, its cause, prevention and treatment measures are described. The Web App is implemented using WebKit Library
 
+<img src="https://github.com/gitpushOmnik/Guardener/blob/main/README%20Images/RPReplay-Final1678839444.gif" width="275" height="600">
