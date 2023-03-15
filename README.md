@@ -34,3 +34,17 @@ After the picture is successfully upload, the Machine Learning Model trained usi
 After the treatment button is pressed, a WebView appears where more information about the disease, its cause, prevention and treatment measures are described. The Web App is implemented using WebKit Library
 
 <img src="https://github.com/gitpushOmnik/Guardener/blob/main/README%20Images/RPReplay-Final1678839444.gif" width="275" height="600">
+
+### Pods Used
+
+* Alamofire
+* SwiftyJSOn
+
+### Libraries Used
+
+* UIKit
+* CoreML
+* AVFoundation
+* WekKit
+* CreateML
+
