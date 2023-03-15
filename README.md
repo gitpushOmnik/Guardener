@@ -1,6 +1,6 @@
 # Guardener 
 
-## A Leaf Disease Classifier 
+## A Leaf Disease Detector 
 This application is written using Swift, AVFoundation and CoreML. This application conforms to the MVC (Model view Controller) design pattern followed by Apple which enhances code readability and formatting. The application is used for the identification, detection, and classification of leaf diseases in a particular plant. One of the signs of plants being unhealthy or getting infected is via their leaves. If the leaves of a plant get infected, then it is a good time for gardeners to start applying some treatments to their plants in order to sustain their growth. With the help of this application, users can simply click a picture of a leaf/leaves of their plant that they think is infected with the help of AVFoundation library. Users also have the option of cropping the image or retaking it as per their preference. The application then performs image classification with the help of Machine Learning (specifically Deep Learning) and the CoreML library. The captured image can be classified into 38 different classes. After successful classification, some information about the disease is displayed in the application and a treatment button appears on the screen. Users can then press the treatment button which redirects them to a WebView implemented using the WebKit library. This opens up a WebApp which contains information about the disease, its treatment, and ways to prevent the disease from occurring in the future.
 
 ## Dataset 
