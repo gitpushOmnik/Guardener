@@ -2,122 +2,201 @@
 //  Leaf.swift
 //  Guardener
 //
-//  Created by Omkar Nikhal on 3/14/23.
+//  Created by Omkar Nikhal.
 //
 
 import Foundation
 
 struct Leaf{
     
-    var name = ""
-    var wikiName = ""
-    var temp = ""
-    var urlString = "https://www.planetnatural.com/pest-problem-solver/plant-disease/"
+    var name: String?
+    var leafType: LeafDisease?
     
-    mutating func compute() {
+    init(name: String) {
+        self.name = name
         
-        if name.contains("Apple Scab"){
-            self.wikiName = "Apple_scab"
-            self.urlString += "apple-scab"
-            self.temp = "Apple Scab"
+        if name.contains("Apple Scab") {
+            self.leafType = .appleScab
         }
-        else if name.contains("Apple Black Rot"){
-            self.wikiName = "Black_rot"
-            self.urlString = "https://extension.umn.edu/plant-diseases/black-rot-apple"
-            self.temp = "Apple Black Rot"
+        else if name.contains("Apple Black Rot") {
+            self.leafType = .appleBlackRot
         }
         else if name.contains("Apple Rust"){
-            self.wikiName = "Gymnosporangium_juniperi-virginianae"
-            self.urlString += "cedar-apple-rust"
-            self.temp = "Apple Rust"
+            self.leafType = .appleRust
         }
         else if name.contains("Healthy"){
-            self.wikiName = "Plant_health"
-            self.urlString = "https://www.planetnatural.com/pest-problem-solver/houseplant-pests/"
-            self.temp = "Healthy"
+            self.leafType = .healthy
         }
         else if name.contains("Powdery Mildew"){
-            self.wikiName = "Powdery_mildew"
-            self.urlString += "powdery-mildew"
-            self.temp = "Powdery Mildew"
+            self.leafType = .powderyMildew
         }
         else if (name.contains("Leaf Spot") || name.contains("Bacterial Spot")){
-            self.wikiName = "Leaf_spot"
-            self.urlString += "bacterial-leaf-spot"
-            self.temp = "Bacterial Leaf Spot"
+            self.leafType = .bacterialLeafSpot
         }
         else if name.contains("Common Rust"){
-            self.wikiName = "Puccinia_sorghi"
-            self.urlString += "common-rust"
-            self.temp = "Common Rust"
+            self.leafType = .commonRust
         }
         else if name.contains("Leaf Blight"){
-            self.wikiName = "Blight"
-            self.urlString = "https://www.gardentech.com/disease/leaf-blight"
-            self.temp = "Leaf Blight"
+            self.leafType = .leafBlight
         }
         else if name.contains("Grape Black Rot"){
-            self.wikiName = "Black_rot"
-            self.urlString = "https://www.gardeningknowhow.com/edible/fruits/grapes/black-rot-grape-treatment.htm"
-            self.temp = "Grape Black Rot"
+            self.leafType = .grapeBlackRot
         }
         else if name.contains("Early Blight"){
-            self.wikiName = "Alternaria_solani"
-            self.urlString += "early-blight"
-            self.temp = "Early Blight"
+            self.leafType = .earlyBlight
         }
         else if name.contains("Late Blight"){
-            self.wikiName = "Phytophthora_infestans"
-            self.urlString += "late-blight"
-            self.temp = "Late Blight"
+            self.leafType = .lateBlight
         }
         else if name.contains("Leaf Scorch"){
-            self.wikiName = "Leaf_scorch"
-            self.urlString += "fire-blight"
-            self.temp = "Leaf Scorch"
+            self.leafType = .leafScorch
         }
         else if name.contains("Leaf Mold"){
-            self.wikiName = "Leaf_mold"
-            self.urlString += "gray-mold"
-            self.temp = "Leaf Mold"
+            self.leafType = .leafMold
         }
         else if name.contains("Target Spot"){
-            self.wikiName = "Corynespora_cassiicola"
-            self.urlString = "https://www.gardeningknowhow.com/edible/vegetables/tomato/target-spot-on-tomatoes.htm"
-            self.temp = "Target Spot"
+            self.leafType = .targetSpot
         }
         else if name.contains("Mosaic Virus"){
-            self.wikiName = "Mosaic_virus"
-            self.urlString += "mosaic-virus"
-            self.temp = "Mosaic Virus"
+            self.leafType = .mosaicVirus
         }
         else if name.contains("Leaf Curl"){
-            self.wikiName = "Leaf_curl"
-            self.urlString += "leaf-curl"
-            self.temp = "Leaf Curl"
+            self.leafType = .leafCurl
         }
         else if name.contains("Spider Mites"){
-            self.wikiName = "Spider_mite"
-            self.urlString =     "https://www.gardeningknowhow.com/plant-problems/pests/insects/spider-mite-treatment.htm"
-            self.temp = "Spider Mites"
+            self.leafType = .spiderMites
         }
         else if name.contains("Orange Haunglongbing"){
-            self.wikiName = "Citrus_greening_disease"
-            self.urlString = "https://www.gardeningknowhow.com/edible/fruits/citrus/citrus-greening-disease.htm"
-            self.temp = "Orange Haunglongbing"
+            self.leafType = .orangeHaunglongbing
         }
     }
     
-    func getwikiName() -> String{
-        return self.wikiName
+    var wikiName: String {
+        switch leafType {
+        case .appleScab:
+            return "Apple_scab"
+        case .appleBlackRot:
+            return "Black_rot"
+        case .appleRust:
+            return "Gymnosporangium_juniperi-virginianae"
+        case .healthy:
+            return "Plant_health"
+        case .powderyMildew:
+            return "Powdery_mildew"
+        case .bacterialLeafSpot:
+            return "Leaf_spot"
+        case .commonRust:
+            return "Puccinia_sorghi"
+        case .leafBlight:
+            return "Blight"
+        case .grapeBlackRot:
+            return "Black_rot"
+        case .earlyBlight:
+            return "Alternaria_solani"
+        case .lateBlight:
+            return "Phytophthora_infestans"
+        case .leafScorch:
+            return "Leaf_scorch"
+        case .leafMold:
+            return "Leaf_mold"
+        case .targetSpot:
+            return "Corynespora_cassiicola"
+        case .mosaicVirus:
+            return "Mosaic_virus"
+        case .leafCurl:
+            return "Leaf_curl"
+        case .spiderMites:
+            return "Spider_mite"
+        case .orangeHaunglongbing:
+            return "Citrus_greening_disease"
+        case .none:
+            return ""
+        }
     }
     
-    func geturlString() -> String{
-        return self.urlString
+    var urlString: String {
+        switch leafType {
+        case .appleScab:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/apple-scab"
+        case .appleBlackRot:
+            return "https://extension.umn.edu/plant-diseases/black-rot-apple"
+        case .appleRust:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/cedar-apple-rust"
+        case .healthy:
+            return "https://www.planetnatural.com/pest-problem-solver/houseplant-pests/"
+        case .powderyMildew:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/powdery-mildew"
+        case .bacterialLeafSpot:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/bacterial-leaf-spot"
+        case .commonRust:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/common-rust"
+        case .leafBlight:
+            return "https://www.gardentech.com/disease/leaf-blight"
+        case .grapeBlackRot:
+            return "https://www.gardeningknowhow.com/edible/fruits/grapes/black-rot-grape-treatment.htm"
+        case .earlyBlight:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/early-blight"
+        case .lateBlight:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/late-blight"
+        case .leafScorch:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/fire-blight"
+        case .leafMold:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/gray-mold"
+        case .targetSpot:
+            return "https://www.gardeningknowhow.com/edible/vegetables/tomato/target-spot-on-tomatoes.htm"
+        case .mosaicVirus:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/mosaic-virus"
+        case .leafCurl:
+            return "https://www.planetnatural.com/pest-problem-solver/plant-disease/leaf-curl"
+        case .spiderMites:
+            return "https://www.gardeningknowhow.com/plant-problems/pests/insects/spider-mite-treatment.htm"
+        case .orangeHaunglongbing:
+            return "https://www.gardeningknowhow.com/edible/fruits/citrus/citrus-greening-disease.htm"
+        case .none:
+            return ""
+        }
     }
     
-    func getName() -> String{
-        return self.temp
+    var leafName: String {
+        switch leafType {
+        case .appleScab:
+            return "Apple Scab"
+        case .appleBlackRot:
+            return "Apple Black Rot"
+        case .appleRust:
+            return "Apple Rust"
+        case .healthy:
+            return "Healthy"
+        case .powderyMildew:
+            return "Powdery Mildew"
+        case .bacterialLeafSpot:
+            return "Bacterial Leaf Spot"
+        case .commonRust:
+            return "Common Rust"
+        case .leafBlight:
+            return "Leaf Blight"
+        case .grapeBlackRot:
+            return "Black Rot"
+        case .earlyBlight:
+            return "Early Blight"
+        case .lateBlight:
+            return "Late Blight"
+        case .leafScorch:
+            return "Leaf Scorch"
+        case .leafMold:
+            return "Leaf Mold"
+        case .targetSpot:
+            return "Target Spot"
+        case .mosaicVirus:
+            return "Mosaic Virus"
+        case .leafCurl:
+            return "Leaf Curl"
+        case .spiderMites:
+            return "Spider Mites"
+        case .orangeHaunglongbing:
+            return "Citrus Greening"
+        case .none:
+            return ""
+        }
     }
-    
 }
