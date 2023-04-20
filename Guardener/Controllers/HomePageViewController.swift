@@ -108,16 +108,13 @@ class HomePageViewController: UIViewController, UIImagePickerControllerDelegate,
     
     func getDisease(diseaseName: String){
     
-        var leafDisease = Leaf()
-        leafDisease.name = diseaseName
+        var leafDisease = Leaf(name: diseaseName)
         
-        leafDisease.compute()
-        
-        wikiName = leafDisease.getwikiName()
-        urlString = leafDisease.geturlString()
+        wikiName = leafDisease.wikiName
+        urlString = leafDisease.urlString
         
         DispatchQueue.main.async{
-            self.navigationItem.title = leafDisease.getName()
+            self.navigationItem.title = leafDisease.leafName
             self.extractDescription(name: self.wikiName)
         }
         
