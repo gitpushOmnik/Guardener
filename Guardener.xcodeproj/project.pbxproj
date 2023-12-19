@@ -16,6 +16,9 @@
 		D50FF54F29B91724007C3784 /* WKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FF54E29B91724007C3784 /* WKWebViewController.swift */; };
 		D522F5BA29BE9C090035060A /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D522F5B929BE9C090035060A /* HomePageViewController.swift */; };
 		D522F5BF29C123A30035060A /* Leaf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D522F5BE29C123A30035060A /* Leaf.swift */; };
+		D54143292B317EBF005EAB7C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D54143282B317EBF005EAB7C /* Alamofire */; };
+		D541432C2B318135005EAB7C /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = D541432B2B318135005EAB7C /* SwiftyJSON */; };
+		D541432E2B31824E005EAB7C /* LeafEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541432D2B31824E005EAB7C /* LeafEnum.swift */; };
 		D5DA0EF429BC1B3300AC8DE2 /* LeafDiseaseClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D5DA0EF329BC1B3300AC8DE2 /* LeafDiseaseClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +36,7 @@
 		D50FF54E29B91724007C3784 /* WKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewController.swift; sourceTree = "<group>"; };
 		D522F5B929BE9C090035060A /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		D522F5BE29C123A30035060A /* Leaf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaf.swift; sourceTree = "<group>"; };
+		D541432D2B31824E005EAB7C /* LeafEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeafEnum.swift; sourceTree = "<group>"; };
 		D5DA0EF329BC1B3300AC8DE2 /* LeafDiseaseClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LeafDiseaseClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D541432C2B318135005EAB7C /* SwiftyJSON in Frameworks */,
 				AD17F95312ED9E41F5D0E8A0 /* Pods_Guardener.framework in Frameworks */,
+				D54143292B317EBF005EAB7C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				D522F5BE29C123A30035060A /* Leaf.swift */,
+				D541432D2B31824E005EAB7C /* LeafEnum.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -150,6 +157,10 @@
 			dependencies = (
 			);
 			name = Guardener;
+			packageProductDependencies = (
+				D54143282B317EBF005EAB7C /* Alamofire */,
+				D541432B2B318135005EAB7C /* SwiftyJSON */,
+			);
 			productName = Guardener;
 			productReference = D50FF53529B91493007C3784 /* Guardener.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +189,10 @@
 				Base,
 			);
 			mainGroup = D50FF52C29B91493007C3784;
+			packageReferences = (
+				D54143272B317EBF005EAB7C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				D541432A2B318135005EAB7C /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = D50FF53629B91493007C3784 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -247,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D541432E2B31824E005EAB7C /* LeafEnum.swift in Sources */,
 				D50FF53929B91493007C3784 /* AppDelegate.swift in Sources */,
 				D522F5BA29BE9C090035060A /* HomePageViewController.swift in Sources */,
 				D5DA0EF429BC1B3300AC8DE2 /* LeafDiseaseClassifier.mlmodel in Sources */,
@@ -472,6 +488,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D54143272B317EBF005EAB7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		D541432A2B318135005EAB7C /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D54143282B317EBF005EAB7C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D54143272B317EBF005EAB7C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		D541432B2B318135005EAB7C /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D541432A2B318135005EAB7C /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D50FF52D29B91493007C3784 /* Project object */;
 }

@@ -12,27 +12,36 @@ import Alamofire
 import SwiftyJSON
 
 
+/// The view controller responsible for the home page of the Guardener app.
 class HomePageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
+    /// Image view displaying the user-selected image.
     @IBOutlet weak var userImageView: UIImageView!
     
+    /// Label displaying the description of the leaf disease.
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    /// Button triggering the treatment view.
     @IBOutlet weak var treatmentButton: UIButton!
     
+    /// Image picker for capturing leaf images.
     let imagePicker = UIImagePickerController()
     
+    /// URL for Wikipedia API.
     let wikipediaURL = "https://en.wikipedia.org/w/api.php"
     
+    /// Name of the leaf for Wikipedia search.
     var wikiName = ""
     
+    /// URL string for leaf disease information.
     var urlString = ""
     
     override func viewWillAppear(_ animated: Bool) {
-        if let nav = navigationController?.navigationBar{
+        if let nav = navigationController?.navigationBar {
+            // Configure navigation bar appearance.
             let standardAppearance = UINavigationBarAppearance()
             standardAppearance.backgroundColor = UIColor.green
-            standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black]
+            standardAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
             nav.barTintColor = UIColor.black
             nav.standardAppearance = standardAppearance
             nav.scrollEdgeAppearance = standardAppearance
@@ -41,38 +50,43 @@ class HomePageViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Set the title and initial description.
         navigationItem.title = "Guardener"
-        descriptionLabel.text = "Press the camera button on the top right corner to click picture of a leaf"
+        descriptionLabel.text = "Press the camera button on the top right corner to click a picture of a leaf"
         treatmentButton.isHidden = true
         imagePicker.delegate = self
     }
     
+    /// Action triggered when the treatment button is pressed.
     @IBAction func treatmentButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "goToWebView", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToWebView"{
+        if segue.identifier == "goToWebView" {
+            // Pass the URL to the web view controller.
             let destinationVC = segue.destination as! WKWebViewController
             destinationVC.webURL = urlString
         }
     }
     
+    /// Action triggered when the camera button is pressed.
     @IBAction func cameraButtonPressed(_ sender: UIBarButtonItem) {
         imagePicker.sourceType = .camera
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let imagePicked = info[.editedImage] as? UIImage
-        guard let userImage = imagePicked else{
-            fatalError("Failed to store image captures by user")
+    /// Delegate method called when an image is picked from the camera.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        // Process the picked image.
+        guard let imagePicked = info[.editedImage] as? UIImage else {
+            fatalError("Failed to store the image captured by the user")
         }
         
-        userImageView.image = userImage
-        if let ciimage = CIImage(image: userImage)
-        {
+        userImageView.image = imagePicked
+        if let ciimage = CIImage(image: imagePicked) {
+            // Perform leaf classification.
             performClassification(ciimage: ciimage)
         }
         
@@ -80,16 +94,16 @@ class HomePageViewController: UIViewController, UIImagePickerControllerDelegate,
         imagePicker.dismiss(animated: true)
     }
     
-    func performClassification(ciimage: CIImage){
-        do{
+    /// Perform leaf disease classification using Core ML and Vision.
+    func performClassification(ciimage: CIImage) {
+        do {
             let model = try VNCoreMLModel(for: LeafDiseaseClassifier(configuration: MLModelConfiguration()).model)
             
             let request = VNCoreMLRequest(model: model) { request, error in
-                if(error != nil){
+                if error != nil {
                     print("Error performing classification \(error!)")
-                }else{
-                    if let topResult = request.results?.first as? VNClassificationObservation{
-                        
+                } else {
+                    if let topResult = request.results?.first as? VNClassificationObservation {
                         self.getDisease(diseaseName: topResult.identifier)
                     }
                 }
@@ -97,68 +111,60 @@ class HomePageViewController: UIViewController, UIImagePickerControllerDelegate,
             
             let handler = VNImageRequestHandler(ciImage: ciimage)
             
-            do{
+            do {
                 try handler.perform([request])
             }
-            
-        }catch{
+        } catch {
             print("Error loading the model \(error)")
         }
     }
     
-    func getDisease(diseaseName: String){
-    
+    /// Retrieve detailed information about the leaf disease from a custom Leaf class.
+    func getDisease(diseaseName: String) {
         var leafDisease = Leaf(name: diseaseName)
         
         wikiName = leafDisease.wikiName
         urlString = leafDisease.urlString
         
-        DispatchQueue.main.async{
+        DispatchQueue.main.async {
             self.navigationItem.title = leafDisease.leafName
             self.extractDescription(name: self.wikiName)
         }
-        
     }
     
-    func extractDescription(name: String){
-        
-        let parameters : [String:String] = [
-            "format" : "json",
-            "action" : "query",
-            "prop" : "extracts|pageimages",
-            "exintro" : "",
-            "explaintext" : "",
-            "titles" : name,
-            "redirects" : "1",
-            "pithumbsize" : "500",
-            "indexpageids" : ""
+    /// Extract the description of the leaf disease from Wikipedia using Alamofire and SwiftyJSON.
+    func extractDescription(name: String) {
+        let parameters: [String: String] = [
+            "format": "json",
+            "action": "query",
+            "prop": "extracts|pageimages",
+            "exintro": "",
+            "explaintext": "",
+            "titles": name,
+            "redirects": "1",
+            "pithumbsize": "500",
+            "indexpageids": ""
         ]
         
-        AF.request(wikipediaURL, method: .get, parameters: parameters).responseJSON { (response) in
-            switch response.result{
-                
+        AF.request(wikipediaURL, method: .get, parameters: parameters).responseJSON { response in
+            switch response.result {
             case .success(let value):
-                    let leafJSON = JSON(value)
-                    
-                    let pageid = leafJSON["query"]["pageids"][0].stringValue
-                    
-                    let leafDescription = leafJSON["query"]["pages"][pageid]["extract"].stringValue
-                    
+                let leafJSON = JSON(value)
+                
+                let pageid = leafJSON["query"]["pageids"][0].stringValue
+                
+                let leafDescription = leafJSON["query"]["pages"][pageid]["extract"].stringValue
+                
                 DispatchQueue.main.async {
                     self.descriptionLabel.text = leafDescription
                 }
-                    
-                break
                 
             case .failure(let error):
                 print("Error \(String(describing: error))")
-                DispatchQueue.main.async{
+                DispatchQueue.main.async {
                     self.descriptionLabel.text = "Connection Issues"
                 }
-                    break
             }
         }
     }
-    
 }
-
